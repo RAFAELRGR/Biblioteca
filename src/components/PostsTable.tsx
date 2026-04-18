@@ -8,10 +8,15 @@ import { PageSize } from "@/types";
 import { useState } from "react";
 import Pagination from "./Pagination";
 
-export default function PostsTable() {
+interface Props {
+  search: string;
+}
+
+export default function PostsTable({ search }: Props) {
 
   const [pageSize, setPageSize] = useState<PageSize>(10);
   const [page, setPage] = useState(1);
+
   
   const { data, isLoading, isError } = useQuery<Posts[]>({
     queryKey: ["posts"],
@@ -21,8 +26,12 @@ export default function PostsTable() {
   if (isLoading) return <BaseTable />;
   if (isError) return <p>Error al cargar los libros</p>;
 
-  const paginated = data?.slice((page - 1) * pageSize, page * pageSize);
-  const totalPages = Math.ceil((data?.length ?? 0) / pageSize);
+
+  const filtered = data?.filter((post) =>
+    post.title.toLowerCase().includes(search.toLowerCase())
+  )
+  const paginated = filtered?.slice((page - 1) * pageSize, page * pageSize);
+  const totalPages = Math.ceil((filtered?.length ?? 0) / pageSize);
 
   return (
     
