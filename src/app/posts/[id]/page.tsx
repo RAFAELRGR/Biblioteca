@@ -19,7 +19,7 @@ export default async function PostIdPage({ params }: Props){
                 <p className="text-red-500 text-lg font-medium">
                     Error al Cargar el Libro
                 </p>
-                <Link href={"/"} className="mt-6 inline-block bg-mauve-400 text-white px-6 py-2.5 rounded-xl text-sm font-medium shadow-sm hover:bg-mauve-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:bg-mauve-500 focus:ring-offset-2">
+                <Link href={"/"} className="not-[]:mt-6 inline-block bg-mauve-400 text-white px-6 py-2.5 rounded-xl text-sm font-medium shadow-sm hover:bg-mauve-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:bg-mauve-500 focus:ring-offset-2">
                     Volver al listado
                 </Link>
             </div>
@@ -28,7 +28,7 @@ export default async function PostIdPage({ params }: Props){
         <div className="max-w-2xl mx-auto">
             <Link
                 href="/"
-                className="mt-6 inline-block bg-mauve-400 text-white px-6 py-2.5 rounded-xl text-sm font-medium shadow-sm hover:bg-mauve-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:bg-mauve-500 focus:ring-offset-2"
+                className="mt-6 mb-6  inline-block bg-mauve-400 text-white px-6 py-2.5 rounded-xl text-sm font-medium shadow-sm hover:bg-mauve-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:bg-mauve-500 focus:ring-offset-2"
             >Volver al listado
             </Link>
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
