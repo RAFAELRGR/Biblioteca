@@ -4,3 +4,6 @@ export interface Posts{
     title: string;
     body: string;
 }
+
+
+export type PageSize = 10 | 20 | 50 ;

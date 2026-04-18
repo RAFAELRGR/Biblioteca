@@ -1,8 +1,11 @@
+import Pagination from "./Pagination";
 import PostsTable from "./PostsTable";
-
-
 export default function PostsView(){
     return(
-        <PostsTable/>
+        <div>
+            <br />
+            <PostsTable/>
+        </div>
+            
     );
 }
