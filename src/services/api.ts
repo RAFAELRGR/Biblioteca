@@ -9,3 +9,9 @@ export async function fetchPosts(): Promise<Posts[]>{
     return(res.json());
 }
 
+
+export async function fetchPostId(id: number): Promise<Posts>{
+    const res = await fetch(`${URL}/post/${id}`);
+    if (!res.ok) throw new Error("No se pudo cargar el Libro")
+    return(res.json());   
+}

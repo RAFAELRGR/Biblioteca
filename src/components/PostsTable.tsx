@@ -1,6 +1,6 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { fetchPosts } from "@/services/api";
+import { fetchPosts} from "@/services/api";
 import { Posts } from "@/types";
 import Link from "next/link";
 import BaseTable from "./BaseTable";
