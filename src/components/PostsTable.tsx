@@ -1,5 +1,4 @@
 "use client";
-
 import { useQuery } from "@tanstack/react-query";
 import { fetchPosts } from "@/services/api";
 import { Posts } from "@/types";
@@ -16,24 +15,24 @@ export default function PostsTable() {
   if (isError) return <p>Error al cargar los libros</p>;
 
   return (
-    <div className="relative flex flex-col w-full h-full text-gray-700 bg-white shadow-md rounded-lg overflow-hidden">
+    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
       <div className="overflow-x-auto">
-        <table className="w-full text-left table-auto min-w-max">
+        <table className="w-full text-sm">
           <thead>
-            <tr>
-              <th className="p-4 border-b border-slate-200 bg-slate-50">
-                <p className="text-sm font-normal text-slate-500">ID</p>
+            <tr className="bg-gray-50 border-b border-gray-200">
+              <th className="px-4 py-3 text-left font-semibold text-gray-600 select-none w-16">
+                ID
               </th>
-              <th className="p-4 border-b border-slate-200 bg-slate-50">
-                <p className="text-sm font-normal text-slate-500">Título</p>
+              <th className="px-4 py-3 text-left font-semibold text-gray-600 select-none">
+                Título
               </th>
-              <th className="p-4 border-b border-slate-200 bg-slate-50">
-                <p className="text-sm font-normal text-slate-500">Descripción</p>
+              <th className="px-4 py-3 text-left font-semibold text-gray-600 hidden md:table-cell">
+                Descripción
               </th>
-              <th className="p-4 border-b border-slate-200 bg-slate-50" />
+              <th className="px-4 py-3 w-24" />
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-100">
             {data?.map((post) => (
               <tr key={post.id} className="hover:bg-gray-50 transition-colors">
                 <td className="px-4 py-3 text-gray-400 font-mono text-xs">
