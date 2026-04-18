@@ -22,12 +22,32 @@ export default function PostsTable() {
   if (isError) return <p>Error al cargar los libros</p>;
 
   const paginated = data?.slice((page - 1) * pageSize, page * pageSize);
-  
+  const totalPages = Math.ceil((data?.length ?? 0) / pageSize);
+
   return (
     
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
       <div className="px-4 py-3 border-t border-gray-100">
         <Pagination onPageSizeChange={(size) => { setPageSize(size); setPage(1); }} />
+        <div className="px-4 py-3 flex items-center gap-2">
+            <button
+              onClick={() => setPage(page - 1)}
+              disabled={page === 1}
+              className="px-3 py-1.5 text-sm rounded-lg border border-gray-200 disabled:opacity-30 hover:bg-gray-50"
+            >Anterior
+            </button>
+
+            <span className="text-sm text-gray-500">
+              {page} / {totalPages}
+            </span>
+
+            <button
+              onClick={() => setPage(page + 1)}
+              disabled={page === totalPages}
+              className="px-3 py-1.5 text-sm rounded-lg border border-gray-200 disabled:opacity-30 hover:bg-gray-50"
+            >Siguiente
+            </button>
+      </div>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
