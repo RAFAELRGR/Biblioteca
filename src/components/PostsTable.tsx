@@ -1,10 +1,9 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPosts} from "@/services/api";
-import { Posts } from "@/types";
 import Link from "next/link";
 import BaseTable from "./BaseTable";
-import { PageSize } from "@/types";
+import { Posts ,PageSize , SortField } from "@/types";
 import { useState } from "react";
 import Pagination from "./Pagination";
 
@@ -16,7 +15,8 @@ export default function PostsTable({ search }: Props) {
 
   const [pageSize, setPageSize] = useState<PageSize>(10);
   const [page, setPage] = useState(1);
-
+  const [sortField, setSortField] = useState<SortField>("id");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   
   const { data, isLoading, isError } = useQuery<Posts[]>({
     queryKey: ["posts"],
@@ -30,8 +30,15 @@ export default function PostsTable({ search }: Props) {
   const filtered = data?.filter((post) =>
     post.title.toLowerCase().includes(search.toLowerCase())
   )
-  const paginated = filtered?.slice((page - 1) * pageSize, page * pageSize);
-  const totalPages = Math.ceil((filtered?.length ?? 0) / pageSize);
+  const sorted = filtered?.sort((a, b) => {
+  const valA = sortField === "id" ? a.id : a.title.toLowerCase();
+  const valB = sortField === "id" ? b.id : b.title.toLowerCase();
+  if (valA < valB) return sortOrder === "asc" ? -1 : 1;
+  if (valA > valB) return sortOrder === "asc" ? 1 : -1;
+  return 0;
+});
+const paginated = sorted?.slice((page - 1) * pageSize, page * pageSize);
+const totalPages = Math.ceil((sorted?.length ?? 0) / pageSize);
 
   return (
     
@@ -62,8 +69,23 @@ export default function PostsTable({ search }: Props) {
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-gray-50 border-b border-gray-200">
-              <th className="px-4 py-3 text-left font-semibold text-gray-600 select-none w-16">ID</th>
-              <th className="px-4 py-3 text-left font-semibold text-gray-600 select-none">Título</th>
+              <th className="px-4 py-3 text-left font-semibold text-gray-600 cursor-pointer hover:text-emerald-600 select-none w-16"
+                onClick={() => {
+                  if (sortField === "id") setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+                  else { setSortField("id"); setSortOrder("asc"); }
+                }}>
+                ID {sortField === "id" ? (sortOrder === "asc" ? "↑" : "↓") : "↕"}
+              </th>
+
+              <th
+                className="px-4 py-3 text-left font-semibold text-gray-600 cursor-pointer hover:text-emerald-600 select-none"
+                onClick={() => {
+                  if (sortField === "title") setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+                  else { setSortField("title"); setSortOrder("asc"); }
+                }}
+              >
+                Título {sortField === "title" ? (sortOrder === "asc" ? "↑" : "↓") : "↕"}
+              </th>
               <th className="px-4 py-3 text-left font-semibold text-gray-600 hidden md:table-cell">Descripción</th>
               <th className="px-4 py-3 w-24" />
             </tr>

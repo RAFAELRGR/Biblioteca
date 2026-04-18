@@ -7,3 +7,4 @@ export interface Posts{
 
 
 export type PageSize = 10 | 20 | 50 ;
+export type SortField = "id" | "title";
