@@ -1,4 +1,4 @@
-## 🚀 Instalación y ejecución
+## Instalación y ejecución
 
 ### Requisitos
 - Node.js 18+
